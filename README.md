@@ -1,9 +1,5 @@
 # k8s_wildfly
 
-
-
-# k8s_wildfly
-
 Projeto para preparar o Servidor Wildfly em Ambiente do Kubernetes.
 
 - Instalação do Docker
