@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: wildfly
+  name: my-service
+spec:
+  type: NodePort
+  ports:
+    - name: "wildfly-service"   
+      port: 8080      
+      targetPort: 80
+      nodePort: 8080
+      # port: 9990    
+      # targetPort: 80
+      # nodePort: 9990
+  selector:
+    app: wildfly
+
