@@ -4,7 +4,6 @@ metadata:
   labels:
     app: wildfly
   name: wildfly-deployment
-  namespace: wildfly
 spec:
   replicas: 1
   selector:
