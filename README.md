@@ -36,11 +36,21 @@ The input spec must provide the service name as backend ( my-service in the abov
 
 Commands:
 
-kubectl create -f /k8s/deployments/
+- kubectl create -f /k8s/deployments/
 
-kubectl create -f /k8s/ingress/
+- kubectl create -f /k8s/ingress/
 
-kubectl create -f /k8s/services/
+- kubectl create -f /k8s/services/
+
+to expose the IP of the node the pod is contained in:
+
+- minikube service serve --url
 
 *These commands run the files on the cluster creating their entities.
+
+references:
+
+- https://hub.docker.com/r/bitnami/wildfly
+
+- https://kubernetes.io/pt-br/docs/home/
 

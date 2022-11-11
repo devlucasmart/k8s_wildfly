@@ -2,27 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: wildfly
-  name: wildfly-deployment
+    app: serve
+  name: serve
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wildfly
+      app: serve
   template:
     metadata:
       labels:
-        app: wildfly
+        app: serve
     spec:
       containers:
-        - name: wildfly
-          image: bitnami/wildfly:26
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8080
-              name: portweb
-            # - containerPort: 9990
-            #   name: portconsole
+      - image: bitnami/wildfly:26
+        name: wildfly
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: WILDFLY_USERNAME
+          value: root
+        - name: WILDFLY_PASSWORD
+          value: 123
+        - name: WILDFLY_MANAGEMENT_LISTEN_ADDRESS
+          value: 0.0.0.0
+        ports:
+        - containerPort: 9990
+          name: wildfly
+        
+
