@@ -66,13 +66,13 @@ Projeto de preparação do servidor Wildfly em ambiente Kubernetes.
 
 Para preparar o servidor Wildfly no ambiente Kubernetes, temos que ter alguns manifestos do Kubernetes que seriam Deployments, Services e Ingress.
 
-- Implantações:
+- Deployments:
 
 Na configuração Deployments, as réplicas especificam o número desejado de pods replicados com o rótulo igual à diretiva matchLabels que está na chave do formulário, valor. Se houver vários rótulos, eles serão AND, o que significa que podemos ter tantos rótulos de pod, mas eles devem corresponder a pelo menos todos os pares de chave e valor matchLabels.
 
 Esses pares de rótulos de valores-chave facilitam a filtragem de recursos com base no rótulo. Por exemplo, se adicionarmos label tier: back-end aos serviços de implantação de back-end, podemos obter a lista de implantação com
 
-- Serviço
+- Service
 
 Temos pods em execução no cluster Kubernetes que precisam ser conectados de alguma forma. Esse é o trabalho do Serviço.
 
@@ -80,7 +80,7 @@ O serviço abstrai os endereços IP do pod para um nome de serviço estático pa
 
 As solicitações de proxy para o pod desejado são baseadas no seletor de especificação de serviço que deve corresponder aos rótulos de metadados no pod.
 
-- Entrada
+- Ingress
 
 O serviço só pode ser usado dentro do cluster. Por exemplo, dentro do cluster podemos acessar o nginx com o comando curl http://my-service onde my-service é o nome do serviço com seletor para o pod nginx.
 
