@@ -102,7 +102,7 @@ Comandos:
 
 para expor o IP do nó em que o pod está contido:
 
-- serviço minikube servir --url
+-  minikube service serve --url
 
 *Esses comandos executam os arquivos no cluster criando suas entidades.
 
