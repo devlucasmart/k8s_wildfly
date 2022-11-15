@@ -54,3 +54,62 @@ references:
 
 - https://kubernetes.io/pt-br/docs/home/
 
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# k8s_wildfly - Projeto em teste
+
+Projeto de preparação do servidor Wildfly em ambiente Kubernetes.
+
+- Instalação do Docker
+
+- Instalando Kubernetes
+
+Para preparar o servidor Wildfly no ambiente Kubernetes, temos que ter alguns manifestos do Kubernetes que seriam Deployments, Services e Ingress.
+
+- Implantações:
+
+Na configuração Deployments, as réplicas especificam o número desejado de pods replicados com o rótulo igual à diretiva matchLabels que está na chave do formulário, valor. Se houver vários rótulos, eles serão AND, o que significa que podemos ter tantos rótulos de pod, mas eles devem corresponder a pelo menos todos os pares de chave e valor matchLabels.
+
+Esses pares de rótulos de valores-chave facilitam a filtragem de recursos com base no rótulo. Por exemplo, se adicionarmos label tier: back-end aos serviços de implantação de back-end, podemos obter a lista de implantação com
+
+- Serviço
+
+Temos pods em execução no cluster Kubernetes que precisam ser conectados de alguma forma. Esse é o trabalho do Serviço.
+
+O serviço abstrai os endereços IP do pod para um nome de serviço estático para que solicitações externas possam ser enviadas por proxy para vários pods. Temos diferentes tipos de serviços: NodePort, ClusterIP, LoadBalancer que discutiremos em outro post.
+
+As solicitações de proxy para o pod desejado são baseadas no seletor de especificação de serviço que deve corresponder aos rótulos de metadados no pod.
+
+- Entrada
+
+O serviço só pode ser usado dentro do cluster. Por exemplo, dentro do cluster podemos acessar o nginx com o comando curl http://my-service onde my-service é o nome do serviço com seletor para o pod nginx.
+
+Agora, precisamos configurar a forma de acesso aos serviços fora do cluster via endereço IP ou alguma URL. A entrada vem aqui também para terminação SSL para balanceamento de carga.
+
+Um Ingress é uma coleção de regras que permitem que conexões de entrada alcancem serviços de cluster.
+
+A especificação de entrada deve fornecer o nome do serviço como backend ( my-service no caso acima) e a porta ( servicePort ) que é exposta pelo serviço junto com a rota de URL (/api, /login) ou host com base no nome (api .example.com, login.example .com)
+
+- com os manifestos escritos e revisados, os comandos para execução dos pods serão apresentados a seguir.
+
+Comandos:
+
+- kubectl create -f /k8s/deployments/
+
+- kubectl create -f /k8s/ingress/
+
+- kubectl create -f /k8s/services/
+
+para expor o IP do nó em que o pod está contido:
+
+- serviço minikube servir --url
+
+*Esses comandos executam os arquivos no cluster criando suas entidades.
+
+referências:
+
+- https://hub.docker.com/r/bitnami/wildfly
+
+- https://kubernetes.io/pt-br/docs/home/
+
+
